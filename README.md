@@ -374,7 +374,7 @@ pytest
 
 ```
 git clone https://github.com/afkXesP/access_core.git
-cd project
+cd access_core
 ```
 
 ---
