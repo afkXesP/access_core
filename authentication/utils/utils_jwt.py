@@ -1,7 +1,7 @@
 import jwt
 import uuid
 from django.conf import settings
-from datetime import datetime
+from django.utils import timezone
 
 def generate_jwt(user):
     """
@@ -18,8 +18,8 @@ def generate_jwt(user):
         "user_id": user.id,
         'role': user.role.name if user.role else None,
         'jti': str(uuid.uuid4()),
-        "iat": datetime.now(),
-        "exp": datetime.now() + settings.JWT_ACCESS_TOKEN_LIFETIME,
+        "iat": timezone.now(),
+        "exp": timezone.now() + settings.JWT_ACCESS_TOKEN_LIFETIME,
     }
 
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)

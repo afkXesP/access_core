@@ -42,7 +42,7 @@ class RegisterSerializer(serializers.Serializer):
 
 class LoginSerializer(serializers.Serializer):
     """
-    Сериализатор авторизации  пользователя
+    Сериализатор авторизации пользователя
     """
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)

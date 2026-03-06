@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 from .admin_views import RoleViewSet, BusinessElementViewSet, AccessRoleRuleViewSet, UserViewSet
 
+
 router = DefaultRouter()
 router.register('admin/roles', RoleViewSet)
 router.register('admin/elements', BusinessElementViewSet)

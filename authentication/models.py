@@ -16,7 +16,9 @@ class Role(models.Model):
 
 
 class UserManager(BaseUserManager):
-    """Менеджер пользователей"""
+    """
+    Менеджер пользователей
+    """
     def create_user(self, email, password, **extra_fields):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -26,6 +28,8 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
         return self.create_user(email, password, **extra_fields)
 
@@ -36,12 +40,12 @@ class User(AbstractBaseUser):
 
     Используется email вместо username.
     Поддерживает soft delete через поле is_active.
-    Пользователь связан с ролью, которая определяет его права доступа.
     """
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=200)
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -56,7 +60,9 @@ class User(AbstractBaseUser):
 
 
 class BusinessElement(models.Model):
-    """Объекты бизнес-приложения, которым регулируется доступ"""
+    """
+    Объекты бизнес-приложения, которым регулируется доступ
+    """
     name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
